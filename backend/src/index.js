@@ -17,6 +17,7 @@ import authRoutes from "./routes/auth.route.js";
 import songRoutes from "./routes/song.route.js";
 import albumRoutes from "./routes/album.route.js";
 import statRoutes from "./routes/stat.route.js";
+import { ensureDbConnected } from "./middleware/db.middleware.js";
 
 dotenv.config();
 
@@ -29,7 +30,7 @@ initializeSocket(httpServer);
 
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: process.env.FRONTEND_URL || "http://localhost:3000",
 		credentials: true,
 	})
 );
@@ -63,6 +64,8 @@ cron.schedule("0 * * * *", () => {
 	}
 });
 
+app.use(ensureDbConnected);
+
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
@@ -82,7 +85,9 @@ app.use((err, req, res, next) => {
 	res.status(500).json({ message: process.env.NODE_ENV === "production" ? "Internal server error" : err.message });
 });
 
+// connect to database
+connectDB();
+
 httpServer.listen(PORT, () => {
 	console.log("Server is running on port " + PORT);
-	connectDB();
 });
