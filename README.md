@@ -1,4 +1,6 @@
 # 🎧 Spotify — Full-Stack Music & Social Experience
+<img width="1877" height="903" alt="image" src="https://github.com/user-attachments/assets/9b71fe2d-f83e-4b75-aaf5-dba76e1c87cc" />
+
 
 > **A premium, real-time music streaming platform** engineered with the modern MERN stack, featuring seamless synchronization, an administrative nerve center, and a state-of-the-art user interface.
 
